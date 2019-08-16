@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+    contenT="ie=edge">
+    <title>Kiesau App Buy</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">    
+    <link rel="stylesheet" href="css/style.css">  
+
+</head>
+<body>
+    <div class="list-group">
+       <a>
+            <h4> House No. <%= houseNo %> - <%= venueAddress %> </h4>
+            <h4>"<%= title %>" performed by <%= performerName %></h4>
+            <form class="form-horizontal" role="form" id="paypalForm" method="post" action="/pay">
+                <p>Your email-Address for confirmation and identification:</p>
+                <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="Enter your email" required>
+                <br/>
+                <p>How many Tickets ?:</p>
+                <input type="number" class="form-control" ng-model="number" name="ticketAmount" min="1" max="<%= availableSeats %>">
+                <br/>
+                <br/>
+                <input type="hidden" value="<%= id %>" name="id"/>
+                <input type="hidden" value="<%= feeEur %>" name="feeEur"/>
+                <input type="hidden" value="<%= houseNo %>" name="houseNo"/>
+                <input type="hidden" value="<%= venueAddress %>" name="venueAddress"/>
+                <input type="hidden" value="<%= title %>" name="title"/>
+                <input type="hidden" value="<%= performerName %>" name="performerName"/>
+                <input type="hidden" value="<%= availableSeats %>" name="availableSeats"/>
+
+                <button class="btn submitBtn">Paypal Now</button>
+            </form>
+        </a>
+      </div>
+  
+
+</body>
+
+</html>
