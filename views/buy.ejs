@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="Enter your email" required>
                 <br/>
                 <p>How many Tickets ?:</p>
-                <input type="number" class="form-control" ng-model="number" name="ticketAmount" min="1" max="<%= availableSeats %>">
+                <input type="number" class="form-control" ng-model="number" name="ticketAmount" min="1" max="<%= availableSeats %>" placeholder="1">
                 <br/>
                 <br/>
                 <input type="hidden" value="<%= id %>" name="id"/>

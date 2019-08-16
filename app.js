@@ -4,7 +4,7 @@ const paypal = require('paypal-rest-sdk');
 const bodyParser = require('body-parser')
 global.fetch = require('node-fetch')
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const API_URL = 'http://192.168.1.29:3001'
 
 
@@ -78,71 +78,67 @@ app.post('/buy', (req,res) => {
 
 
 app.post('/pay', async (req,res) => {
-    global.gigId = req.body.id
-    const gigFeeEur= req.body.feeEur
-    const gigHouseNo = req.body.houseNo
-    global.ticketAmount = req.body.ticketAmount
-    global.buyer = req.body.buyer
-    // console.log('gigId: ',gigId )
-    // console.log('gigFeeEur: ',gigFeeEur )
-    // console.log('gigHouseNo: ',gigHouseNo )
-    // console.log('ticketAmount: ',ticketAmount )
-    global.feeEur = gigFeeEur * ticketAmount
-    const response = await fetch(`${API_URL}/gigs/${gigId}`, {method: "GET"});
-    gig = await response.json();
-    if (response.ok && gig.startSeats - gig.soldSeats >= ticketAmount) { // if HTTP-status is 200-299
-      // get the response body (the method explained below)
+  global.gigId = req.body.id
+  const gigFeeEur= req.body.feeEur
+  const gigHouseNo = req.body.houseNo
+  global.ticketAmount = req.body.ticketAmount
+  global.buyer = req.body.buyer
+  // console.log('gigId: ',gigId )
+  // console.log('gigFeeEur: ',gigFeeEur )
+  // console.log('gigHouseNo: ',gigHouseNo )
+  // console.log('ticketAmount: ',ticketAmount )
+  global.feeEur = gigFeeEur * ticketAmount
+  const response = await fetch(`${API_URL}/gigs/${gigId}`, {method: "GET"});
+  gig = await response.json();
+  if (response.ok && gig.startSeats - gig.soldSeats >= ticketAmount) { // if HTTP-status is 200-299
+    // get the response body (the method explained below)
       const create_payment_json = {
-        "intent": "sale",
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "redirect_urls": {
-            "return_url": "http://192.168.1.29:3000/success",
-            "cancel_url": "http://192.168.1.29:3000/cancel"
-        },
-        "transactions": [{
-            "item_list": {
-                "items": [{
-                    "name": `Ticket for House No. ${gigHouseNo}`,
-                    "sku": "001",
-                    "price": `${gigFeeEur}`,
-                    "currency": "EUR",
-                    "quantity": `${ticketAmount}`
-                }]
-            },
-            "amount": {
-                "currency": "EUR",
-                "total": `${feeEur}`
-            },
-            "description": `Tiocket for House No. ${gigHouseNo}`
-        }]
-      };
+      "intent": "sale",
+      "payer": {
+          "payment_method": "paypal"
+      },
+      "redirect_urls": {
+          "return_url": `http://localhost:${port}/success`,
+          "cancel_url": `http://localhost:${port}/cancel`
+      },
+      "transactions": [{
+          "item_list": {
+              "items": [{
+                  "name": `Ticket for House No. ${gigHouseNo}`,
+                  "sku": "001",
+                  "price": `${gigFeeEur}`,
+                  "currency": "EUR",
+                  "quantity": `${ticketAmount}`
+              }]
+          },
+          "amount": {
+              "currency": "EUR",
+              "total": `${feeEur}`
+          },
+          "description": `Tiocket for House No. ${gigHouseNo}`
+      }]
+    };
     
     
-      paypal.payment.create(create_payment_json, function (error, payment) {
-          if (error) {
-              console.log("ERROR");
-              throw error;
-          } else {
-              // console.log("Create Payment Response");
-              // console.log(payment);
-              for(var i=0; i < payment.links.length; i++) {
-                  if (payment.links[i].rel === 'approval_url') {
-                      res.redirect(payment.links[i].href);
-                  }
-              }
-          }
-      });
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            console.log("ERROR");
+            throw error;
+        } else {
+            // console.log("Create Payment Response");
+            // console.log(payment);
+            for(var i=0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    res.redirect(payment.links[i].href);
+                }
+            }
+        }
+    });
 
-    } else {
-      console.log("HTTP-Error: " + response.status + "   Or suddenly sold Out");
-      res.render('message', { message: 'Something went wrong, no tickets were purchased' })
-    }  
-  
-
-    
-
+  } else {
+    console.log("HTTP-Error: " + response.status + "   Or suddenly sold Out");
+    res.render('message', { message: 'Something went wrong, no tickets were purchased' })
+  }  
 })
 
 app.get('/success', async (req, res) => {
