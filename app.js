@@ -99,8 +99,8 @@ app.post('/pay', async (req,res) => {
           "payment_method": "paypal"
       },
       "redirect_urls": {
-          "return_url": `http://localhost:${port}/success`,
-          "cancel_url": `http://localhost:${port}/cancel`
+          "return_url": `https://stormy-ocean-23870.herokuapp.com/success`,
+          "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel`
       },
       "transactions": [{
           "item_list": {
