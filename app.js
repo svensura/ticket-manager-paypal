@@ -5,7 +5,8 @@ const bodyParser = require('body-parser')
 global.fetch = require('node-fetch')
 const app = express();
 const port = process.env.PORT || 3000;
-const API_URL = 'http://192.168.1.29:3001'
+//const API_URL = 'http://192.168.1.29:3001'
+const API_URL = 'https://sura-ticket-manager.herokuapp.com'
 
 
 
