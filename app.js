@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const ejs = require('ejs');
 const paypal = require('paypal-rest-sdk');
@@ -17,6 +19,7 @@ paypal.configure({
   });
 
 app.use(bodyParser.urlencoded({extended:true}))
+app.use('/public', express.static(process.cwd() + '/public'));
 
 app.set('view engine', 'ejs');
 
@@ -36,7 +39,7 @@ app.get('/', async (req, res) => {
     }  
   
     // render `home.ejs` with the list of posts
-    res.render('home', { gigs: gigs })
+    res.render('pages/home', { gigs: gigs })
     
   })
 
@@ -64,7 +67,7 @@ app.post('/buy', (req,res) => {
   const gigTitle = req.body.title
   const gigPerformerName = req.body.performerName
   const gigAvailableSeats = req.body.availableSeats
-  res.render('buy', {
+  res.render('pages/buy', {
     error: null,
     id: gigId,
     houseNo: gigHouseNo,
@@ -138,7 +141,7 @@ app.post('/pay', async (req,res) => {
 
   } else {
     console.log("HTTP-Error: " + response.status + "   Or suddenly sold Out");
-    res.render('message', { message: 'Something went wrong, no tickets were purchased' })
+    res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
   }  
 })
 
@@ -174,7 +177,7 @@ app.get('/success', async (req, res) => {
               headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) { // if HTTP-status is 200-299
-              res.render('message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
 
             } else {
               console.log("HTTP-Error: " + response.status);
@@ -192,9 +195,9 @@ app.get('/success', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               // get the response body (the method explained below)
-              res.render('message', { message: `${ticketAmount} ticket(s) were successfully purchased` })
+              res.render('pages/message', { message: `${ticketAmount} ticket(s) were successfully purchased` })
             } else {
-              res.render('message', { message: 'Something went wrong, contact info@germanscreens.de' })
+              res.render('pages/message', { message: 'Something went wrong, contact info@germanscreens.de' })
             }  
             
         }
@@ -210,7 +213,7 @@ app.get('/cancel', async (req, res) => {
               headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) { // if HTTP-status is 200-299
-              res.render('message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
 
             } else {
               // console.log("HTTP-Error: " + response.status);
