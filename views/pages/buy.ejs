@@ -19,17 +19,23 @@
                 <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="Enter your email" required>
                 <br/>
                 <p>How many Tickets ?:</p>
-                <select type="number" class="form-control" ng-model="number" name="ticketAmount" min="1" max="<%= availableSeats %>" placeholder="1">
-                        
-                <%
-                    for (var i = 0; i < availableSeats; i++){
-                        %>
-                        <option value= <% i + 1 %> > <%= i + 1 %> </option>
+                <select type= class="form-control"  name="amount"  placeholder="1">
+                    <optgroup label="Select Table"></optgroup>  
+                    <option value= "1" selected>1</option>  
                         <%
-                    }
-                %>
+                            for (var i = 0; i < availableSeats-1; i++){
+                            %>
+                            <option value="<%= (i + 2).toString() %>"> <%= i + 2 %> </option>
+                            <%
+                                }
+                        %>
+                    </optgroup>
+ 
                     </select>
 
+                    
+
+                    <br/>
                      
                 <br/>
                 <br/>

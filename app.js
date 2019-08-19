@@ -1,4 +1,4 @@
-'use strict';
+
 
 const express = require('express');
 const ejs = require('ejs');
@@ -43,19 +43,7 @@ app.get('/', async (req, res) => {
     
   })
 
-  // blog post
-  app.get('/post/:id', (req, res) => {
-    // find the post in the `posts` array
-    const post = posts.filter((post) => {
-      return post.id == req.params.id
-    })[0]
-    // render the `post.ejs` template with the post content
-    res.render('post', {
-      author: post.author,
-      title: post.title,
-      body: post.body
-    })
-  })
+ 
 
 
 
@@ -85,7 +73,7 @@ app.post('/pay', async (req,res) => {
   global.gigId = req.body.id
   const gigFeeEur= req.body.feeEur
   const gigHouseNo = req.body.houseNo
-  global.ticketAmount = req.body.ticketAmount
+  global.ticketAmount = parseInt(req.body.amount)
   global.buyer = req.body.buyer
   // console.log('gigId: ',gigId )
   // console.log('gigFeeEur: ',gigFeeEur )
@@ -94,6 +82,7 @@ app.post('/pay', async (req,res) => {
   global.feeEur = gigFeeEur * ticketAmount
   const response = await fetch(`${API_URL}/gigs/${gigId}`, {method: "GET"});
   gig = await response.json();
+  
   if (response.ok && gig.startSeats - gig.soldSeats >= ticketAmount) { // if HTTP-status is 200-299
     // get the response body (the method explained below)
       const create_payment_json = {
@@ -102,6 +91,9 @@ app.post('/pay', async (req,res) => {
           "payment_method": "paypal"
       },
       "redirect_urls": {
+        // "return_url": `http://192.168.1.29:3000/success`,
+        // "cancel_url": `http://192.168.1.29:3000/cancel`
+      
           "return_url": `https://stormy-ocean-23870.herokuapp.com/success`,
           "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel`
       },
