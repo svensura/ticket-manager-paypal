@@ -118,8 +118,10 @@ app.post('/pay', async (req,res) => {
     
     paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
-            console.log("ERROR");
-            throw error;
+            console.log("Payment-creation ERROR");
+            //throw error;
+            res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+
         } else {
             // console.log("Create Payment Response");
             // console.log(payment);
@@ -169,12 +171,14 @@ app.get('/success', async (req, res) => {
               headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) { // if HTTP-status is 200-299
+              console.log("Payment-creation ERROR");
               res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
 
             } else {
               console.log("HTTP-Error: " + response.status);
+              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
             }  
-                    throw error;
+                    //throw error;
         // payment went through   
         } else {
             // console.log("Get Payment Response");
@@ -205,10 +209,12 @@ app.get('/cancel', async (req, res) => {
               headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok) { // if HTTP-status is 200-299
+              console.log("Paypal CANCELLED");
               res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
 
             } else {
-              // console.log("HTTP-Error: " + response.status);
+              console.log("HTTP-Error: " + response.status);
+              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
             }  
     //res.send('Cancelled')
 }) 
