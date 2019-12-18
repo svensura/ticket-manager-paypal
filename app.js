@@ -111,7 +111,7 @@ app.post('/pay', async (req,res) => {
               "currency": "EUR",
               "total": `${feeEur}`
           },
-          "description": `Tiocket for House No. ${gigHouseNo}`
+          "description": `Ticket f. Haus Nr. ${gigHouseNo}`
       }]
     };
     
@@ -120,7 +120,7 @@ app.post('/pay', async (req,res) => {
         if (error) {
             console.log("Payment-creation ERROR");
             //throw error;
-            res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+            res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
 
         } else {
             // console.log("Create Payment Response");
@@ -135,7 +135,7 @@ app.post('/pay', async (req,res) => {
 
   } else {
     console.log("HTTP-Error: " + response.status + "   Or suddenly sold Out");
-    res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+    res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
   }  
 })
 
@@ -158,7 +158,7 @@ app.get('/success', async (req, res) => {
         }
       }]
     };
-    paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
+    paypal.payment.execute(paymentId, execute_payment_json, async (error, payment) => {
 
         // payment failed
         if (error) {
@@ -172,11 +172,11 @@ app.get('/success', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               console.log("Payment-creation ERROR");
-              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
 
             } else {
               console.log("HTTP-Error: " + response.status);
-              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
             }  
                     //throw error;
         // payment went through   
@@ -191,7 +191,7 @@ app.get('/success', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               // get the response body (the method explained below)
-              res.render('pages/message', { message: `${ticketAmount} ticket(s) were successfully purchased` })
+              res.render('pages/message', { message: `${ticketAmount} Ticket(s) wurden erfolgreich erworben und werden an der Abendkasse hinterlegt` })
             } else {
               res.render('pages/message', { message: 'Something went wrong, contact info@germanscreens.de' })
             }  
@@ -210,11 +210,11 @@ app.get('/cancel', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               console.log("Paypal CANCELLED");
-              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
 
             } else {
               console.log("HTTP-Error: " + response.status);
-              res.render('pages/message', { message: 'Something went wrong, no tickets were purchased' })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!' })
             }  
     //res.send('Cancelled')
 }) 
@@ -224,15 +224,15 @@ app.listen(port, () => console.log('Server started on port ', port));
 
 
 // alphabetical sort function
-var sort_by = function(field, reverse, primer){
+var sort_by = (field, reverse, primer) => {
 
   var key = primer ? 
-      function(x) {return primer(x[field])} : 
-      function(x) {return x[field]};
+      (x) => {return primer(x[field])} : 
+      (x) => {return x[field]};
 
   reverse = !reverse ? 1 : -1;
 
-  return function (a, b) {
+  return (a, b) => {
       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
     } 
 }
