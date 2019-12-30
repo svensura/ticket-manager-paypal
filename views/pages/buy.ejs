@@ -10,15 +10,15 @@
     <div class="container">
         <div class="col-md-8">
         <div class="form-group">
-            <h4> House No. <%= houseNo %>  </h4>
+            <h4> Haus Nr. <%= houseNo %>  </h4>
             <p> <%= venueAddress %> </p>
-            <h4>"<%= title %>" performed by </h4>
+            <h4>"<%= title %>" zu Gast: </h4>
             <h4><%= performerName %></h4>
             <form class="form-horizontal" role="form" id="paypalForm" method="post" action="/pay">
-                <p>Your email-Address for confirmation and identification:</p>
+                <p>Ihre email-Adresse für eine Bestätigung und zur Identifikation am Einlass:</p>
                 <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="Enter your email" required>
                 <br/>
-                <p>How many Tickets ?:</p>
+                <p>Anzahl Tickets ?:</p>
                 <select type= class="form-control"  name="amount"  placeholder="1">
                     <optgroup label="Select Table"></optgroup>  
                     <option value= "1" selected>1</option>  
@@ -47,7 +47,7 @@
                 <input type="hidden" value="<%= performerName %>" name="performerName"/>
                 <input type="hidden" value="<%= availableSeats %>" name="availableSeats"/>
 
-                <button class="btn submitBtn">Paypal Now</button>
+                <button class="btn submitBtn">Paypal Zahlung</button>
             </form>
         </div>
         </div>

@@ -9,11 +9,11 @@
         <% gigs.forEach((gig) => { 
             if (gig.startSeats - gig.soldSeats > 0) { %>
           <a  class="list-group-item">
-            <h4 class="list-group-item-heading"> House No. <%= gig.houseNo %> </h4>
+            <h4 class="list-group-item-heading"> Haus Nr. <%= gig.houseNo %> </h4>
             <p class="list-group-item-text"><%= gig.venue.address %></p>
             <h4 class="list-group-item-text">"<%= gig.title %>"</h4>
-            <p class="list-group-item-body"> performed by <%= gig.performer.name %></p>
-            <p class="list-group-item-body"> seats available: <%= gig.startSeats - gig.soldSeats %></p>
+            <p class="list-group-item-body"> zu Gast: <%= gig.performer.name %></p>
+            <p class="list-group-item-body"> Plätze verfügbar: <%= gig.startSeats - gig.soldSeats %></p>
             
             <form class="form-horizontal" role="form" id="ItemForm" method="post" action="/buy">
                 <input type="hidden" value="<%= gig._id %>" name="id"/>
@@ -23,7 +23,7 @@
                 <input type="hidden" value="<%= gig.title %>" name="title"/>
                 <input type="hidden" value="<%= gig.performer.name %>" name="performerName"/>
                 <input type="hidden" value="<%= gig.startSeats - gig.soldSeats %>" name="availableSeats"/>
-                <button class="btn submitBtn">Buy Now</button>
+                <button class="btn submitBtn">Jetzt kaufen</button>
             </form>
         </a>
         <br/>
