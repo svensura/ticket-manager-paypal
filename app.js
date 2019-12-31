@@ -24,15 +24,31 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.set('view engine', 'ejs');
 
 // blog home page
-app.get('/', async (req, res) => {
+app.get('/:houseNo', async (req, res) => {
+    const houseNo = req.params.houseNo
+    const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
+    var gigs=[];
+    if (response.ok) { // if HTTP-status is 200-299
+      // get the response body (the method explained below)
+      gigs = await response.json();
 
+    } else {
+      console.log("HTTP-Error: " + response.status);
+    }  
+  
+    // render `home.ejs` with the list of posts
+    res.render('pages/home', { gigs: gigs.filter( gig => gig.houseNo == houseNo ) })
+    
+  })
+
+  app.get('/', async (req, res) => {
+    const houseNo = req.params.houseNo
     const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
     var gigs=[];
     if (response.ok) { // if HTTP-status is 200-299
       // get the response body (the method explained below)
       gigs = await response.json();
       gigs.sort(sort_by('houseNo'));
-      
 
     } else {
       console.log("HTTP-Error: " + response.status);
@@ -44,9 +60,6 @@ app.get('/', async (req, res) => {
   })
 
  
-
-
-
 app.post('/buy', (req,res) => {
   const gigId = req.body.id
   const gigFeeEur= req.body.feeEur
