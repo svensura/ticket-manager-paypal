@@ -13,9 +13,9 @@ const API_URL = 'https://sura-ticket-manager.herokuapp.com'
 
 
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live 
-    'client_id': 'AblAraG-7OvD-xecbqFX6JzsOyIRoX0jll-96KDZe0inobJvb3IfPEzYjTpm_GB-IHOT_YrvsPVWjS_p', // please provide your client id here 
-    'client_secret': 'EBLpSeURLONVjzATT_xTG59fJuZ94CHDyJvaE8fz5MLq6YtGWpfiVfJgf2jCAQ2BVASk4Z_IX6sLI2AE' // provide your client secret here 
+    'mode': 'live', //sandbox or live 
+    'client_id': 'AdtK8W9DYvGqF1c43unQrApw75WQuqw8cyO_gjqRUHb7vwTjgRHMA-TbkTZcWNOrm0vE7kkp9xOhlib1', // please provide your client id here 
+    'client_secret': 'EAqNVP5EJr4IUUTDDxMmbX7k4VisJFlqtV4m7doYkSpyDDqA2mkCR6TlSunTAw_AcIYhDj8kFK9yBa_E' // provide your client secret here 
   });
 
 app.use(bodyParser.urlencoded({extended:true}))
