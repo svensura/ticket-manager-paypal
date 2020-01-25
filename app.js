@@ -96,7 +96,7 @@ app.post('/pay', async (req,res) => {
         //"cancel_url": `http://192.168.1.16:3000/cancel$/{gigHouseNo}`
       
         "return_url": `https://stormy-ocean-23870.herokuapp.com/success/${gigHouseNo}`,
-        "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel${gigHouseNo}`
+        "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel/${gigHouseNo}`
       },
       "transactions": [{
           "item_list": {
