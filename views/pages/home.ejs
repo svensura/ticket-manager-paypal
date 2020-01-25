@@ -27,7 +27,17 @@
             </form>
         </a>
         <br/>
-        <% }}) %>
+        <% } else { %>
+            <a  class="list-group-item">
+              <h4 class="list-group-item-heading"> Haus Nr. <%= gig.houseNo %> </h4>
+              <p class="list-group-item-text"><%= gig.venue.address %></p>
+              <h4 class="list-group-item-text">"<%= gig.title %>"</h4>
+              <p class="list-group-item-body"> zu Gast: <%= gig.performer.name %></p>
+              <p class="list-group-item-body"> ist ausverkauft</p>
+          </a>
+          <br/>
+          <% }
+    }) %>
         <button onclick="location.href = 'www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm';" id="myButton" class="btn submitBtn" >Zurück zur Homepage</button>
       </div>
 
