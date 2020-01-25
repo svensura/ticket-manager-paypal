@@ -194,7 +194,7 @@ app.get('/success', async (req, res) => {
               // get the response body (the method explained below)
               res.render('pages/message', { message: `${ticketAmount} Ticket(s) wurden erfolgreich erworben und werden an der Abendkasse hinterlegt` })
             } else {
-              res.render('pages/message', { message: 'Something went wrong, contact info@germanscreens.de' })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben! Bei Fragen wenden Sie sich bitte an die in der Homepage angebene email-Adresse.' })
             }  
             
         }
