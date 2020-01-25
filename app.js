@@ -29,8 +29,7 @@ app.set('view engine', 'ejs');
 
   app.get('/', async (req, res) => {
     //console.log("MAIN");
-    const houseNo = req.params.houseNo
-    const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
+   const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
     var gigs=[];
     if (response.ok) { // if HTTP-status is 200-299
       // get the response body (the method explained below)
@@ -92,11 +91,11 @@ app.post('/pay', async (req,res) => {
           "payment_method": "paypal"
       },
       "redirect_urls": {
-        //"return_url": `http://192.168.1.16:3000/success/${gigHouseNo}`,
-        //"cancel_url": `http://192.168.1.16:3000/cancel$/{gigHouseNo}`
+        //"return_url": `http://192.168.1.16:3000/success`,
+        //"cancel_url": `http://192.168.1.16:3000/cancel$`
       
-        "return_url": `https://stormy-ocean-23870.herokuapp.com/success/${gigHouseNo}`,
-        "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel/${gigHouseNo}`
+        "return_url": `https://stormy-ocean-23870.herokuapp.com/success`,
+        "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel`
       },
       "transactions": [{
           "item_list": {
@@ -140,7 +139,7 @@ app.post('/pay', async (req,res) => {
   }  
 })
 
-app.get('/success/:houseNo', async (req, res) => {
+app.get('/success', async (req, res) => {
   //console.log("SUCCESS");
   const body = { amount: ticketAmount, buyer: buyer  };
     const response = await fetch(`${API_URL}/gigs_buy/${gigId}`, {
@@ -173,11 +172,11 @@ app.get('/success/:houseNo', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               console.log("Payment-creation ERROR");
-              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!', link: `${gigHouseNo}` })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!'})
 
             } else {
               console.log("HTTP-Error: " + response.status);
-              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!', link: `${gigHouseNo}` })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!'})
             }  
                     //throw error;
         // payment went through   
@@ -192,9 +191,9 @@ app.get('/success/:houseNo', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               // get the response body (the method explained below)
-              res.render('pages/message', { message: `${ticketAmount} Ticket(s) wurden erfolgreich erworben und werden an der Abendkasse hinterlegt`, link: `${gigHouseNo}` })
+              res.render('pages/message', { message: `${ticketAmount} Ticket(s) wurden erfolgreich erworben und werden an der Abendkasse hinterlegt`})
             } else {
-              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben! Bei Fragen wenden Sie sich bitte an die in der Homepage angebene email-Adresse.', link: `${gigHouseNo}` })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben! Bei Fragen wenden Sie sich bitte an die in der Homepage angebene email-Adresse.'})
             }  
             
         }
@@ -212,11 +211,11 @@ app.get('/cancel/:houseNo', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               console.log("Paypal CANCELLED");
-              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!', link: `${gigHouseNo}` })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!'})
 
             } else {
               console.log("HTTP-Error: " + response.status);
-              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!', link: `${gigHouseNo}`  })
+              res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!'})
             }  
     //res.send('Cancelled')
 }) 
