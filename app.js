@@ -49,7 +49,7 @@ app.set('view engine', 'ejs');
  
 app.post('/buy', (req,res) => {
   const gigId = req.body.id
-  const gigFeeEur= req.body.feeEur
+  const gigFeePPEur= req.body.feePPEur
   const gigHouseNo = req.body.houseNo
   const gigVenueAddress = req.body.venueAddress
   const gigTitle = req.body.title
@@ -62,7 +62,7 @@ app.post('/buy', (req,res) => {
     venueAddress: gigVenueAddress,
     title: gigTitle,
     performerName: gigPerformerName,
-    feeEur: gigFeeEur,
+    feePPEur: gigFeePPEur,
     availableSeats: gigAvailableSeats
   })
 })
@@ -71,7 +71,7 @@ app.post('/buy', (req,res) => {
 
 app.post('/pay', async (req,res) => {
   global.gigId = req.body.id
-  const gigFeeEur= req.body.feeEur
+  const gigFeePPEur= req.body.feePPEur
   const gigHouseNo = req.body.houseNo
   global.ticketAmount = parseInt(req.body.amount)
   global.buyer = req.body.buyer
@@ -79,7 +79,7 @@ app.post('/pay', async (req,res) => {
   // console.log('gigFeeEur: ',gigFeeEur )
   // console.log('gigHouseNo: ',gigHouseNo )
   // console.log('ticketAmount: ',ticketAmount )
-  global.feeEur = gigFeeEur * ticketAmount
+  global.feePPEur = gigFeePPEur * ticketAmount
   const response = await fetch(`${API_URL}/gigs/${gigId}`, {method: "GET"});
   gig = await response.json();
   
@@ -102,7 +102,7 @@ app.post('/pay', async (req,res) => {
               "items": [{
                   "name": `Ticket for House No. ${gigHouseNo}`,
                   "sku": "001",
-                  "price": `${gigFeeEur}`,
+                  "price": `${gigFeePPEur}`,
                   "currency": "EUR",
                   "quantity": `${ticketAmount}`
               }]
@@ -154,7 +154,7 @@ app.get('/success', async (req, res) => {
     "transactions": [{
       "amount": {
         "currency": "EUR",
-        "total": `${feeEur}`
+        "total": `${feePPEur}`
         }
       }]
     };
