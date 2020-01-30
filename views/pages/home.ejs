@@ -13,6 +13,7 @@
             <p class="list-group-item-text"><%= gig.venue.address %></p>
             <h4 class="list-group-item-text">"<%= gig.title %>"</h4>
             <p class="list-group-item-body"> zu Gast: <%= gig.performer.name %></p>
+            <p class="list-group-item-body"> zum Preis von: <%= gig.feePPEur %> € (incl. PayPal-Gebühr)</p>
             <p class="list-group-item-body"> Plätze verfügbar: <%= gig.startSeats - gig.soldSeats %></p>
             
             <form class="form-horizontal" role="form" id="ItemForm" method="post" action="/buy">
