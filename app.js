@@ -28,8 +28,8 @@ app.set('view engine', 'ejs');
   // all gigs
 
   app.get('/', async (req, res) => {
-    //console.log("MAIN");
-   const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
+  // console.log("MAIN");
+  const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
     var gigs=[];
     if (response.ok) { // if HTTP-status is 200-299
       // get the response body (the method explained below)
@@ -45,24 +45,6 @@ app.set('view engine', 'ejs');
     
   })
 
-  // one gig
-
-  app.get('/:houseNo', async (req, res) => {
-    const houseNo = req.params.houseNo
-    const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
-    var gigs=[];
-    if (response.ok) { // if HTTP-status is 200-299
-      // get the response body (the method explained below)
-      gigs = await response.json();
-
-    } else {
-      console.log("HTTP-Error: " + response.status);
-    }  
-
-    // render `home.ejs` with the list of posts
-    res.render('pages/home', { gigs: gigs.filter( gig => gig.houseNo == houseNo ) })
-    
-  })
 
 
 
@@ -96,7 +78,7 @@ app.post('/pay', async (req,res) => {
   global.ticketAmount = parseInt(req.body.amount)
   global.buyer = req.body.buyer
   // console.log('gigId: ',gigId )
-  // console.log('gigFeeEur: ',gigFeeEur )
+  // console.log('gigFeePPEur: ',gigFeePPEur )
   // console.log('gigHouseNo: ',gigHouseNo )
   // console.log('ticketAmount: ',ticketAmount )
   global.feePPEur = gigFeePPEur * ticketAmount
@@ -160,7 +142,7 @@ app.post('/pay', async (req,res) => {
 })
 
 app.get('/success', async (req, res) => {
-  //console.log("SUCCESS");
+  console.log("SUCCESS");
   const body = { amount: ticketAmount, buyer: buyer  };
     const response = await fetch(`${API_URL}/gigs_buy/${gigId}`, {
       method: 'patch',
@@ -240,7 +222,25 @@ app.get('/cancel/:houseNo', async (req, res) => {
     //res.send('Cancelled')
 }) 
 
+// one gig
 
+app.get('/:houseNo', async (req, res) => {
+  // console.log("MAIN#");
+  const houseNo = req.params.houseNo
+  const response = await fetch(`${API_URL}/gigs`, {method: "GET"});
+  var gigs=[];
+  if (response.ok) { // if HTTP-status is 200-299
+    // get the response body (the method explained below)
+    gigs = await response.json();
+
+  } else {
+    console.log("HTTP-Error: " + response.status);
+  }  
+
+  // render `home.ejs` with the list of posts
+  res.render('pages/home', { gigs: gigs.filter( gig => gig.houseNo == houseNo ) })
+  
+})
 
 app.listen(port, () => console.log('Server started on port ', port));
 
