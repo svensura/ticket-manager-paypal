@@ -129,7 +129,7 @@ app.post('/pay', async (req,res) => {
           },
           "amount": {
               "currency": "EUR",
-              "total": `${feeEur}`
+              "total": `${feePPEur}`
           },
           "description": `Ticket f. Haus Nr. ${gigHouseNo}`
       }]
