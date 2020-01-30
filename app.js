@@ -102,8 +102,8 @@ app.post('/pay', async (req,res) => {
       "transactions": [{
           "item_list": {
               "items": [{
-                  "name": `Ticket for House No. ${gigHouseNo}`,
-                  "sku": "001",
+                  "name": `Ticket fuer Haus Nr. ${gigHouseNo}`,
+                  "sku": `${gigHouseNo}`,
                   "price": `${gigFeePPEur}`,
                   "currency": "EUR",
                   "quantity": `${ticketAmount}`
