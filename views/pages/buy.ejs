@@ -15,8 +15,8 @@
                 <h4>"<%= title %>" zu Gast: </h4>
                 <h4><%= performerName %></h4>
                 <form class="form-horizontal" role="form" id="paypalForm" method="post" action="/pay">
-                    <p>Die bestellten Karten werden nicht zugesandt sondern beim Gastgeber der Veranstaltung hinterlegt.</p>
-                    <p>Zur Identifikation dient die nachfolgend einzugebende email-Adresse.</p>
+                    <p>Die bestellten Karten werden nicht zugesandt. Wir benachrichtigen den Gastgeber über Ihr Kommen.</p>
+                    <p>Zur Identifikation am Einlass dient die nachfolgend einzugebende email-Adresse.</p>
                     <p>Alternativ kann auch ein Phantasiename eingegeben werden.</p>
                     <p>Eine elektronische Kaufbestätigunng erhalten Sie in diesem Fall nur von PayPal.</p>
                     <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="email-Adresse" required>
@@ -53,7 +53,7 @@
                     <button class="btn submitBtn">Paypal Zahlung</button>
                 </form>
                 <form class="form-horizontal" role="form" id="ItemForm" method="get" action="https://www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm">
-                    <p class="list-group-item-body"> Hier geht's zurück zur Große-Kiesau-Literaturnacht. </p>
+                    <p class="list-group-item-body"> Hier geht's zurück zur Große-Kiesau-Literaturnacht: </p>
                     <button class="btn submitBtn">Abbruch</button>
                 </form>  
                 
