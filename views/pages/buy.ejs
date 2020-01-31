@@ -9,60 +9,56 @@
 <body>
     <div class="container">
         <div class="col-md-8">
-        <div class="form-group">
-            <h4> Haus Nr. <%= houseNo %>  </h4>
-            <p> <%= venueAddress %> </p>
-            <h4>"<%= title %>" zu Gast: </h4>
-            <h4><%= performerName %></h4>
-            <form class="form-horizontal" role="form" id="paypalForm" method="post" action="/pay">
-                <p>Die bestellten Karten werden nicht zugesandt sondern beim Gastgeber der Veranstaltung hinterlegt.</p>
-                <p>Zur Identifikation dient die nachfolgend einzugebende email-Adresse.</p>
-                <p>Alternativ kann auch ein Phantasiename eingegeben werden.</p>
-                <p>Eine elektronische Kaufbestätigunng erhalten Sie in diesem Fall nur von PayPal.</p>
-                <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="email-Adresse" required>
-                <br/>
-                <p>Anzahl Tickets ?:</p>
-                <select type= class="form-control"  name="amount"  placeholder="1">
-                    <optgroup label="Select Table"></optgroup>  
-                    <option value= "1" selected>1</option>  
-                        <%
-                            for (var i = 0; i < availableSeats-1; i++){
-                            %>
-                            <option value="<%= (i + 2).toString() %>"> <%= i + 2 %> </option>
-                            <%
-                                }
-                        %>
-                    </optgroup>
- 
-                    </select>
-
-                    
-
+            <div class="form-group">
+                <h4> Haus Nr. <%= houseNo %>  </h4>
+                <p> <%= venueAddress %> </p>
+                <h4>"<%= title %>" zu Gast: </h4>
+                <h4><%= performerName %></h4>
+                <form class="form-horizontal" role="form" id="paypalForm" method="post" action="/pay">
+                    <p>Die bestellten Karten werden nicht zugesandt sondern beim Gastgeber der Veranstaltung hinterlegt.</p>
+                    <p>Zur Identifikation dient die nachfolgend einzugebende email-Adresse.</p>
+                    <p>Alternativ kann auch ein Phantasiename eingegeben werden.</p>
+                    <p>Eine elektronische Kaufbestätigunng erhalten Sie in diesem Fall nur von PayPal.</p>
+                    <input type="text" class="form-control" ng-model="email" name="buyer" placeholder="email-Adresse" required>
                     <br/>
-                     
-                <br/>
-                <br/>
-                <input type="hidden" value="<%= id %>" name="id"/>
-                <input type="hidden" value="<%= feePPEur %>" name="feePPEur"/>
-                <input type="hidden" value="<%= houseNo %>" name="houseNo"/>
-                <input type="hidden" value="<%= venueAddress %>" name="venueAddress"/>
-                <input type="hidden" value="<%= title %>" name="title"/>
-                <input type="hidden" value="<%= performerName %>" name="performerName"/>
-                <input type="hidden" value="<%= availableSeats %>" name="availableSeats"/>
-
-                <button class="btn submitBtn">Paypal Zahlung</button>
-            </form>
-        </div>
-        <div class="list-group">
-            <a  class="list-group-item">
-                <p class="list-group-item-body"> Hier geht's zurück zur Große-Kiesau-Literaturnacht. </p>
-            
-            <form class="form-horizontal" role="form" id="ItemForm" method="get" action="https://www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm">
+                    <p>Anzahl Tickets ?:</p>
+                    <select type= class="form-control"  name="amount"  placeholder="1">
+                        <optgroup label="Select Table"></optgroup>  
+                        <option value= "1" selected>1</option>  
+                            <%
+                                for (var i = 0; i < availableSeats-1; i++){
+                                %>
+                                <option value="<%= (i + 2).toString() %>"> <%= i + 2 %> </option>
+                                <%
+                                    }
+                            %>
+                        </optgroup>
     
-                <button class="btn submitBtn">Abbruch</button>
-            </form>  
-            </a>
-        </div>
+                        </select>
+
+                        
+
+                        <br/>
+                        
+                    <br/>
+                    <br/>
+                    <input type="hidden" value="<%= id %>" name="id"/>
+                    <input type="hidden" value="<%= feePPEur %>" name="feePPEur"/>
+                    <input type="hidden" value="<%= houseNo %>" name="houseNo"/>
+                    <input type="hidden" value="<%= venueAddress %>" name="venueAddress"/>
+                    <input type="hidden" value="<%= title %>" name="title"/>
+                    <input type="hidden" value="<%= performerName %>" name="performerName"/>
+                    <input type="hidden" value="<%= availableSeats %>" name="availableSeats"/>
+
+                    <button class="btn submitBtn">Paypal Zahlung</button>
+                </form>
+                <form class="form-horizontal" role="form" id="ItemForm" method="get" action="https://www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm">
+    
+                    <button class="btn submitBtn">Abbruch</button>
+                </form>  
+                
+            </div>
+        
 
         </div>
         </div>
