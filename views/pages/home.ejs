@@ -26,11 +26,7 @@
                 <input type="hidden" value="<%= gig.startSeats - gig.soldSeats %>" name="availableSeats"/>
                 <button class="btn submitBtn">Jetzt kaufen</button>
             </form>
-            <br> <br/>
-            <form class="form-horizontal" role="form" id="ItemForm" method="get" action="https://www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm">
 
-                <button class="btn submitBtn">Abbruch</button>
-            </form>  
         </a>
         <br/>
         <% } else { %>
@@ -46,7 +42,15 @@
           <% }
     }) %>
 
-      </div>
+    </div>
+    <div class="list-group">
+
+        <form class="form-horizontal" role="form" id="ItemForm" method="get" action="https://www.grosse-kiesau.de/14-grosse-kiesau-literaturnacht-kommen-und-gehen/programm">
+
+            <button class="btn submitBtn">Abbruch</button>
+        </form>  
+
+    </div>
 
 
   
