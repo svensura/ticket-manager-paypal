@@ -196,7 +196,8 @@ app.get('/success', async (req, res) => {
             });
             if (response.ok) { // if HTTP-status is 200-299
               // get the response body (the method explained below)
-              res.render('pages/message', { message: `${ticketAmount} Ticket(s) wurden erfolgreich erworben. Ihre email-Adresse bzw. Ihr Phantasiename werden an der Abendkasse hinterlegt`})
+              const plural = (ticketAmount > 1) ? "s" : ""
+              res.render('pages/message', { message: `${ticketAmount} Ticket${plural} wurden erfolgreich erworben. Ihre email-Adresse bzw. Ihr Phantasiename werden an der Abendkasse hinterlegt`})
             } else {
               res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben! Bei Fragen wenden Sie sich bitte an die in der Homepage angebene email-Adresse.'})
             }  
