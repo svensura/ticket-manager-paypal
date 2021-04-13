@@ -136,7 +136,7 @@ app.post('/pay', async (req,res) => {
     });
 
   } else {
-    console.log("HTTP-Error: " + response.status + "   Or suddenly sold Out");
+    console.log("HTTP-Error: " + response.status + " or suddenly sold Out");
     res.render('pages/message', { message: 'Es hat nicht funktioniert, es wurden keine Tickets erworben!', link: `${gigHouseNo}` })
   }  
 })
@@ -185,7 +185,8 @@ app.get('/success', async (req, res) => {
         } else {
             // console.log("Get Payment Response");
             // console.log(JSON.stringify(payment));
-            const body = { amount: ticketAmount, buyer: buyer  };
+            const check = Math.random().toString() // CHECKNUMBER for avoid mutiple sellings with one purchase
+            const body = { amount: ticketAmount, buyer: buyer, check: check  };
             const response = await fetch(`${API_URL}/gigs_ticket/${gigId}`, {
               method: 'patch',
               body:    JSON.stringify(body),
