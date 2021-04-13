@@ -166,6 +166,7 @@ app.get('/success', async (req, res) => {
         if (error) {
             // console.log(error.response);
             //res.send('Something went wrong, no tickets were purchased')
+            console.log('VENDOR_TICKET_REFUND')
             const body = { amount: ticketAmount * (-1), buyer: buyer  };
             const response = await fetch(`${API_URL}/gigs_buy/${gigId}`, {
               method: 'patch',
@@ -187,6 +188,7 @@ app.get('/success', async (req, res) => {
             // console.log(JSON.stringify(payment));
             const check = Math.random().toString() // CHECKNUMBER for avoid mutiple sellings with one purchase
             const body = { amount: ticketAmount, buyer: buyer, check: check  };
+            console.log('PAYPAL_TICKET_CHECK: ', check)
             const response = await fetch(`${API_URL}/gigs_ticket/${gigId}`, {
               method: 'patch',
               body:    JSON.stringify(body),
