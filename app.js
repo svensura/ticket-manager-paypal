@@ -94,7 +94,7 @@ app.post('/pay', async (req,res) => {
       },
       "redirect_urls": {
         //"return_url": `http://192.168.1.16:3000/success`,
-        //"cancel_url": `http://192.168.1.16:3000/cancel$`
+        //"cancel_url": `http://192.168.1.16:3000/cancel`
       
         "return_url": `https://stormy-ocean-23870.herokuapp.com/success`,
         "cancel_url": `https://stormy-ocean-23870.herokuapp.com/cancel`
